@@ -1,9 +1,12 @@
 const express = require('express');
+const { User } = require('../models');
 const router = express.Router();
+const {userList} = require('../views')
 
-router.get('/', (req, res, next) => {
+router.get('/', async(req, res, next) => {
     try {
-        res.send('got to get user')
+        let users = await User.findAll();
+        res.send(userList(users))
     } catch (error) {
         next(error)
     }
